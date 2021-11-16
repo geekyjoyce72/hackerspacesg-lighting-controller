@@ -25,6 +25,7 @@
 #include "lwip/sio.h"
 #endif /* MDK ARM Compiler */
 #include "ethernetif.h"
+#include "lcd_log.h"
 #include <string.h>
 
 /* USER CODE BEGIN 0 */
@@ -35,7 +36,7 @@
 void Error_Handler(void);
 
 /* USER CODE BEGIN 1 */
-
+uint8_t iptxt[20];
 /* USER CODE END 1 */
 /* Semaphore to signal Ethernet Link state update */
 osSemaphoreId Netif_LinkSemaphore = NULL;
@@ -79,11 +80,13 @@ void MX_LWIP_Init(void)
   {
     /* When the netif is fully configured this function must be called */
     netif_set_up(&gnetif);
+    LCD_UsrLog ((char *)"  State: Network link is up\n");
   }
   else
   {
     /* When the netif link is down this function must be called */
     netif_set_down(&gnetif);
+    LCD_UsrLog ((char *)"  State: Network link is down\n");
   }
 
   /* Set the link callback function, this function is called on change of link status*/
@@ -104,7 +107,20 @@ void MX_LWIP_Init(void)
 /* USER CODE END OS_THREAD_NEW_CMSIS_RTOS_V2 */
 
   /* Start DHCP negotiation for a network interface (IPv4) */
-  dhcp_start(&gnetif);
+  LCD_UsrLog ("  State: Looking for DHCP server ...\n");
+  if(dhcp_start(&gnetif) == ERR_OK)
+  {
+	  osDelay(2000);
+	  LCD_UsrLog ("  Acquired DHCP address\n");
+	  sprintf((char *)iptxt, "%s", ip4addr_ntoa((const ip4_addr_t *)&gnetif.ip_addr));
+	  LCD_UsrLog ("  IP address assigned by a DHCP server: %s\n", iptxt);
+  }
+  else
+  {
+	  LCD_UsrLog ("  Failed to get IP address\n");
+  }
+
+
 
 /* USER CODE BEGIN 3 */
 

@@ -108,7 +108,8 @@ LWIP/App/lwip.o: ../LWIP/App/lwip.c ../LWIP/App/lwip.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
  ../LWIP/Target/ethernetif.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/tcpip.h \
- ../Middlewares/Third_Party/LwIP/src/include/lwip/init.h
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/init.h \
+ ../Utilities/Log/lcd_log.h ../Core/Inc/lcd_log_conf.h
 
 ../LWIP/App/lwip.h:
 
@@ -333,3 +334,7 @@ LWIP/App/lwip.o: ../LWIP/App/lwip.c ../LWIP/App/lwip.h \
 ../Middlewares/Third_Party/LwIP/src/include/lwip/tcpip.h:
 
 ../Middlewares/Third_Party/LwIP/src/include/lwip/init.h:
+
+../Utilities/Log/lcd_log.h:
+
+../Core/Inc/lcd_log_conf.h:

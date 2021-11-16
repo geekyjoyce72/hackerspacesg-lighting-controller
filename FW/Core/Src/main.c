@@ -37,6 +37,9 @@
 #include "lcd_log.h"
 #include "hw_init.h"
 
+// Include drivers
+#include "ws2812.h"
+
 // Function Prototypes
 void StartThread(void *argument);
 void WatchdogThread(void *argument);
@@ -53,7 +56,7 @@ const osThreadAttr_t defaultTask_attributes = {
 
 const osThreadAttr_t watchdogTask_attributes = {
     .name = "watchdogTask",
-    .priority = (osPriority_t) osPriorityBelowNormal,
+    .priority = (osPriority_t) osPriorityNormal,
     .stack_size = 128
   };
 
@@ -83,16 +86,12 @@ int main(void)
 // Default Start Thread
 void StartThread(void *argument)
 {
-   // Initialize USB host and lwIP stack
-   MX_USB_HOST_Init();
-   MX_LWIP_Init();
-
    // Initialize LCD
    BSP_LCD_Init();
    BSP_LCD_LayerDefaultInit(1, LCD_FB_START_ADDRESS);
 
    // Set LCD Foreground Layer
-   // BSP_LCD_SelectLayer(1);
+   BSP_LCD_SelectLayer(1);
 
    // Set LCD Default Font
    BSP_LCD_SetFont(&LCD_DEFAULT_FONT);
@@ -100,10 +99,14 @@ void StartThread(void *argument)
    // Initialize LCD Log module
    LCD_LOG_Init();
 
-   LCD_LOG_SetHeader((uint8_t *)"Hackerspace Lighting Controller");
+   LCD_LOG_SetHeader((uint8_t *)"HackerspaceSG Lighting Controller");
    LCD_LOG_SetFooter((uint8_t *)"STM32746G-DISCO board");
 
    LCD_UsrLog ((char *)"  State: Ethernet Initialization ...\n");
+
+   // Initialize USB host and lwIP stack
+   MX_USB_HOST_Init();
+   MX_LWIP_Init();
 
 
    osThreadTerminate(NULL);
@@ -115,7 +118,7 @@ void WatchdogThread(void *argument)
    while (1)
    {
 	   HAL_IWDG_Refresh(&hiwdg);
-	   osDelay(3000);
+	   osDelay(300);
    }
 }
 

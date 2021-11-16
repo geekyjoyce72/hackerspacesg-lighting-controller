@@ -45,7 +45,7 @@ void hw_init()
 	FMC_Init();
 	I2C1_Init();
 	I2C3_Init();
-	LTDC_Init();
+	//LTDC_Init();
 	QUADSPI_Init();
 	RTC_Init();
 	SAI2_Init();
@@ -208,6 +208,12 @@ void ADC3_Init(void)
   }
 }
 
+// DMA Initialization
+void DMA_Init(void)
+{
+
+}
+
 // DMA2D Peripheral Initialization
 void DMA2D_Init(void)
 {
@@ -302,7 +308,7 @@ void IWDG_Init(void)
 }
 
 // LTDC Peripheral Initialization
- void LTDC_Init(void)
+void LTDC_Init(void)
 {
   LTDC_LayerCfgTypeDef pLayerCfg = {0};
 
