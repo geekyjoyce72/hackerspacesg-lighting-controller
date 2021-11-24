@@ -36,6 +36,7 @@
 #include "usb_host.h"
 #include "lcd_log.h"
 #include "hw_init.h"
+#include "server_app.h"
 
 // Include drivers
 #include "ws2812.h"
@@ -43,10 +44,15 @@
 // Function Prototypes
 void StartThread(void *argument);
 void WatchdogThread(void *argument);
+void LEDThread(void *argument);
+
+// Global Variables
+int dataSent = 0;
 
 // Definition of Threads
 osThreadId_t defaultTaskHandle;
 osThreadId_t watchdogTaskHandle;
+osThreadId_t LEDTaskHandle;
 
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
@@ -56,6 +62,12 @@ const osThreadAttr_t defaultTask_attributes = {
 
 const osThreadAttr_t watchdogTask_attributes = {
     .name = "watchdogTask",
+    .priority = (osPriority_t) osPriorityNormal,
+    .stack_size = 128
+  };
+
+const osThreadAttr_t LEDTask_attributes = {
+    .name = "LEDTask",
     .priority = (osPriority_t) osPriorityNormal,
     .stack_size = 128
   };
@@ -108,6 +120,8 @@ void StartThread(void *argument)
    MX_USB_HOST_Init();
    MX_LWIP_Init();
 
+   // Init HTTP Server
+   http_server_init();
 
    osThreadTerminate(NULL);
 }
@@ -122,12 +136,28 @@ void WatchdogThread(void *argument)
    }
 }
 
+// Thread for LED control
+void LEDThread(void *argument)
+{
+   while(1)
+   {
+      osDelay(300);
+   }
+}
+
 // Timer Callback for Timer 6
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
  if (htim->Instance == TIM6) {
    HAL_IncTick();
  }
+}
+
+// Timer PWM Callback for timer 1
+void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
+{
+	HAL_TIM_PWM_Stop_DMA(&htim1, TIM_CHANNEL_1);
+	dataSent = 1;
 }
 
 // Error Handler in case of failure

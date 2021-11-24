@@ -1,0 +1,2 @@
+ws2812.c:38:6:ws2812_init	16	static
+ws2812.c:44:6:ws2812_writeRGB	16	static

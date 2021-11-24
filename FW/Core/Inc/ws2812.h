@@ -33,5 +33,10 @@
 #ifndef WS2812_H
 #define WS2812_H
 
+#include "stm32f7xx_hal.h"
+
+void ws2812_init(int numLEDs, TIM_HandleTypeDef timCh);
+void ws2812_writeRGB(uint8_t g_data, uint8_t r_data, uint8_t b_data);
+
 
 #endif

@@ -37,6 +37,7 @@
 ADC_HandleTypeDef hadc3;
 CRC_HandleTypeDef hcrc;
 DCMI_HandleTypeDef hdcmi;
+DMA_HandleTypeDef hdma_tim1_ch1;
 DMA2D_HandleTypeDef hdma2d;
 I2C_HandleTypeDef hi2c1;
 I2C_HandleTypeDef hi2c3;
@@ -66,6 +67,7 @@ void GPIO_Init(void);
 void ADC3_Init(void);
 void CRC_Init(void);
 void DCMI_Init(void);
+void DMA_Init(void);
 void DMA2D_Init(void);
 void FMC_Init(void);
 void I2C1_Init(void);

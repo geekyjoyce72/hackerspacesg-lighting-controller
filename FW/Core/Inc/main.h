@@ -40,10 +40,10 @@ extern "C" {
 #include "stm32746g_discovery.h"
 #include "stm32746g_discovery_lcd.h"
 
+void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base);
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 void Error_Handler(void);
 
-#define USE_DHCP
 
 // GPIO and Peripheral pin Definitions
 #define LCD_B0_Pin GPIO_PIN_4

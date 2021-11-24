@@ -30,3 +30,18 @@
 ***********************************************************************************************************************/
 
 #include "ws2812.h"
+
+// Internal definitions
+TIM_HandleTypeDef ws2812Ch;
+
+// Initializes Timer PWM Channel, sets up number of LEDs
+void ws2812_init(int numLEDs, TIM_HandleTypeDef timCh)
+{
+
+}
+
+// Writes 24 bit color data to WS2812 in GRB format
+void ws2812_writeRGB(uint8_t g_data, uint8_t r_data, uint8_t b_data)
+{
+	//HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1, (uint32_t *)pwmData, LEDnum);
+}

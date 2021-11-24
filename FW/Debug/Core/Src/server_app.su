@@ -1,0 +1,3 @@
+server_app.c:50:6:http_server_init	8	static
+server_app.c:56:6:http_server_serve	16	static
+server_app.c:62:6:HTTPServerThread	32	static

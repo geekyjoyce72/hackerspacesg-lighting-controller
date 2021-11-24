@@ -117,6 +117,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/tcpip.h \
  ../USB_HOST/App/usb_host.h ../Utilities/Log/lcd_log.h \
  ../Core/Inc/lcd_log_conf.h ../Core/Inc/hw_init.h ../Core/Inc/main.h \
+ ../Core/Inc/server_app.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/api.h \
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/netbuf.h \
  ../Core/Inc/ws2812.h
 
 ../Core/Inc/main.h:
@@ -370,5 +373,11 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/hw_init.h:
 
 ../Core/Inc/main.h:
+
+../Core/Inc/server_app.h:
+
+../Middlewares/Third_Party/LwIP/src/include/lwip/api.h:
+
+../Middlewares/Third_Party/LwIP/src/include/lwip/netbuf.h:
 
 ../Core/Inc/ws2812.h:

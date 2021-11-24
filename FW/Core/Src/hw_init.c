@@ -41,6 +41,7 @@ void hw_init()
 	ADC3_Init();
 	CRC_Init();
 	DCMI_Init();
+	DMA_Init();
 	DMA2D_Init();
 	FMC_Init();
 	I2C1_Init();
@@ -211,7 +212,12 @@ void ADC3_Init(void)
 // DMA Initialization
 void DMA_Init(void)
 {
+   // DMA controller clock enable
+   __HAL_RCC_DMA2_CLK_ENABLE();
 
+   // DMA2_Stream1_IRQn interrupt configuration
+   HAL_NVIC_SetPriority(DMA2_Stream1_IRQn, 0, 0);
+   HAL_NVIC_EnableIRQ(DMA2_Stream1_IRQn);
 }
 
 // DMA2D Peripheral Initialization
